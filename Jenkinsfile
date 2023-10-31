@@ -13,12 +13,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/carlosdibaya/lbg-vat-calculator.git'
             }
         }
-     stage('Build') {
+         stage('Build') {
+             environment {
+                  scannerHome= tool 'sonarqube'
+             }
             steps {
-                withSonarQubeEnv('sonar-qube-1'){
+                withSonarQubeEnv('sonar-qube-1') {
                   sh "${scannerHome}/bin/sonar-scanner"
                     // test
                 }
             }
-      }
+         }
+    }
 }
